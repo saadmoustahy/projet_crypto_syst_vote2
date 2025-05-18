@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Merci | Système de Vote</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Système de Vote d'Élection Avancé</h1>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Merci pour votre vote</h2>
+            <div class="thank-you-message">
+                <p>Votre vote a été enregistré avec succès.</p>
+                <p>Merci de votre participation au processus démocratique.</p>
+            </div>
+            
+            <div class="confirmation-details">
+                <p>Un identifiant unique de confirmation a été généré pour votre vote :</p>
+                <p class="confirmation-id">
+                    {% if id_confirmation %}
+                        {{ id_confirmation }}
+                    {% else %}
+                        VT-2025-<span id="random-id">XXXXXXXX</span>
+                    {% endif %}
+                </p>
+                <p>Veuillez conserver cet identifiant pour toute référence future.</p>
+            </div>
+
+            <a href="/" class="btn btn-primary">Retour à l'accueil</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; {{ now.year }} Système de Vote d'Élection Avancé. Tous droits réservés.</p>
+    </footer>
+
+    {% if not id_confirmation %}
+    <script>
+        // Génération d'un identifiant aléatoire uniquement si aucun n'est fourni par le backend
+        // Ce cas ne devrait pas se produire normalement dans le système final
+        document.addEventListener('DOMContentLoaded', function() {
+            function generateRandomId(length) {
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let result = '';
+                for (let i = 0; i < length; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                return result;
+            }
+            
+            document.getElementById('random-id').textContent = generateRandomId(8);
+        });
+    </script>
+    {% endif %}
+</body>
+</html>

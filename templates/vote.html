@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Vote | Système de Vote</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Système de Vote d'Élection Avancé</h1>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Bulletin de vote</h2>
+            <div class="card-body">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                {% if elections %}
+                    <form method="post" action="{{ url_for('soumettre_vote') }}">
+                        <!-- Inclusion du jeton CSRF -->
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="mb-3">
+                            <label for="election_select" class="form-label">Choisissez une élection</label>
+                            <select class="form-select" id="election_select" name="election_id" required>
+                                {% for election in elections %}
+                                    <option value="{{ election.id }}">{{ election.titre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Choisissez un candidat</label>
+                            <div class="list-group">
+                                <!-- Si vous avez des candidats liés à l'élection, utilisez une boucle ici -->
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="candidate" id="candidate1" value="Candidat 1" required>
+                                    <label class="form-check-label" for="candidate1">SAAD MOUSTAHY</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="candidate" id="candidate2" value="Candidat 2">
+                                    <label class="form-check-label" for="candidate2">MOHAMMED ALMOKHTAR</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="candidate" id="candidate3" value="Candidat 3">
+                                    <label class="form-check-label" for="candidate3">OUSSAMA KIASSI </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Soumettre mon vote</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <div class="alert alert-warning">
+                        Aucune élection disponible actuellement.
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Système de Vote d'Élection Avancé. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

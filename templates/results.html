@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats | Système de Vote d'Élection Avancé</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Système de Vote d'Élection Avancé</h1>
+            <div class="top-bar">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('accueil') }}">Accueil</a></li>
+                        <li><a href="{{ url_for('admin_login') }}">Administration</a></li>
+                        <li><a href="{{ url_for('identification') }}">Voter</a></li>
+                        <li><a href="{{ url_for('results') }}" class="active">Résultats</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="results-section">
+            <h2>Résultats des élections</h2>
+            
+            <div class="election-selector">
+                <div class="form-group">
+                    <label for="election-select">Sélectionner une élection</label>
+                    <select id="election-select">
+                        <option value="">Choisir une élection...</option>
+                        <!-- Les élections seront ajoutées ici dynamiquement -->
+                    </select>
+                </div>
+            </div>
+
+            <div id="results-container" class="card" style="display: none;">
+                <h3 id="result-title">Résultats</h3>
+                <div id="result-info">
+                    <p id="election-date"></p>
+                    <p id="voters-count"></p>
+                    <p id="method-info"></p>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="overview">Vue d'ensemble</button>
+                    <button class="tab-btn" data-tab="details">Détails</button>
+                    <button class="tab-btn" data-tab="charts">Graphiques</button>
+                    <button class="tab-btn" data-tab="verification">Vérification</button>
+                </div>
+
+                <div class="tab-content active" id="overview">
+                    <div id="winner-section">
+                        <h4>Gagnant</h4>
+                        <div class="winner-card">
+                            <div id="winner-photo" class="candidate-photo"></div>
+                            <div class="winner-info">
+                                <h3 id="winner-name"></h3>
+                                <p id="winner-percentage"></p>
+                                <p id="winner-votes"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="results-summary">
+                        <h4>Résumé des résultats</h4>
+                        <div id="results-list">
+                            <!-- Les résultats seront ajoutés ici dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="details">
+                    <h4>Détails du scrutin</h4>
+                    <div id="detailed-results">
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Candidat</th>
+                                    <th>Votes</th>
+                                    <th>Pourcentage</th>
+                                    <th>Distribution</th>
+                                </tr>
+                            </thead>
+                            <tbody id="results-table-body">
+                                <!-- Les résultats détaillés seront ajoutés ici dynamiquement -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="charts">
+                    <h4>Visualisation des résultats</h4>
+                    <div class="charts-container">
+                        <div class="chart-wrapper">
+                            <canvas id="results-chart"></canvas>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="turnout-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="verification">
+                    <h4>Vérifier votre vote</h4>
+                    <p>Entrez votre code de vérification pour confirmer que votre vote a été comptabilisé correctement.</p>
+                    <div class="verification-form">
+                        <div class="form-group">
+                            <label for="verify-hash">Code de vérification</label>
+                            <input type="text" id="verify-hash" placeholder="Entrez votre code de vérification">
+                        </div>
+                        <button type="button" id="verify-btn" class="btn btn-primary">Vérifier</button>
+                    </div>
+                    <div id="verification-result" style="display: none;">
+                        <!-- Le résultat de la vérification sera affiché ici -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Système de Vote d'Élection Avancé. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>

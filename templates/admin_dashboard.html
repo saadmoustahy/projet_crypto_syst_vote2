@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord | Système de Vote d'Élection Avancé</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="admin-dashboard">
+    <header>
+        <div class="container">
+            <h1>Administration - Système de Vote d'Élection Avancé</h1>
+            <div class="top-bar">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('accueil') }}">Accueil</a></li>
+                        <li><a href="{{ url_for('admin_login') }}" class="active">Administration</a></li>
+                        <li><a href="{{ url_for('identification') }}">Voter</a></li>
+                        <li><a href="{{ url_for('results') }}">Résultats</a></li>
+                    </ul>
+                </nav>
+                <div class="user-info">
+                    Connecté en tant que: {{ session.admin_username }} | 
+                    <a href="{{ url_for('admin_logout') }}">Déconnexion</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <section class="stats-card">
+            <h2>Statistiques</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>Électeurs</h3>
+                    <p class="stat-number">{{ electeurs_count }}</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Votes</h3>
+                    <p class="stat-number">{{ votes_count }}</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Élections actives</h3>
+                    <p class="stat-number">{{ elections|length }}</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="card">
+            <h2>Élections</h2>
+            <a href="#" class="btn btn-primary">Nouvelle élection</a>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Date début</th>
+                        <th>Date fin</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for election in elections %}
+                    <tr>
+                        <td>{{ election.id }}</td>
+                        <td>{{ election.titre }}</td>
+                        <td>{{ election.date_debut.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ election.date_fin.strftime('%d/%m/%Y') }}</td>
+                        <td>
+                            <a href="#" class="btn btn-small">Éditer</a>
+                            <a href="#" class="btn btn-small btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Système de Vote d'Élection Avancé. Tous droits réservés.</p>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

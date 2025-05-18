@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer une élection | Système de Vote d'Élection Avancé</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Système de Vote d'Élection Avancé</h1>
+            <div class="top-bar">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ url_for('creer_election') }}" class="active">Créer une élection</a></li>
+                        <li><a href="{{ url_for('admin_logout') }}">Déconnexion</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h2>Créer une nouvelle élection</h2>
+           
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+               
+            <form action="{{ url_for('creer_election') }}" method="POST">
+                <!-- Token CSRF -->
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+               
+                <div class="form-group">
+                    <label for="titre">Titre de l'élection</label>
+                    <input type="text" name="titre" id="titre" required placeholder="Exemple: Élection présidentielle 2025">
+                </div>
+           
+                <div class="form-group">
+                    <label for="date_debut">Date de début</label>
+                    <input type="datetime-local" name="date_debut" id="date_debut" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date_fin">Date de fin</label>
+                    <input type="datetime-local" name="date_fin" id="date_fin" required>
+                </div>
+           
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Créer l'élection</button>
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline">Annuler</a>
+                </div>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Système de Vote d'Élection Avancé. Tous droits réservés.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Définir les dates par défaut
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            // Formater les dates pour les input datetime-local
+            const formatDate = (date) => {
+                const pad = (num) => num.toString().padStart(2, '0');
+                return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+            };
+            
+            // Appliquer les valeurs par défaut
+            document.getElementById('date_debut').value = formatDate(now);
+            document.getElementById('date_fin').value = formatDate(tomorrow);
+            
+            // Validation des dates
+            document.querySelector('form').addEventListener('submit', function(e) {
+                const dateDebut = new Date(document.getElementById('date_debut').value);
+                const dateFin = new Date(document.getElementById('date_fin').value);
+                
+                if (dateFin <= dateDebut) {
+                    e.preventDefault();
+                    alert('La date de fin doit être postérieure à la date de début');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

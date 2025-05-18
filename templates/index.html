@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Vote d'Élection Avancé</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Système de Vote d'Élection Avancé</h1>
+            <div class="top-bar">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('accueil') }}  class="active"">Accueil</a></li>
+                        <li><a href="{{ url_for('admin_login') }}">Administration</a></li>
+                        <li><a href="{{ url_for('identification') }}">Voter</a></li>
+                        <li><a href="{{ url_for('results') }}">Résultats</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h2>Bienvenue sur notre plateforme de vote sécurisée</h2>
+            <p>Un système de vote électronique avancé, sécurisé et transparent.</p>
+            <div class="buttons">
+                <a href="identification.html" class="btn btn-primary">Voter maintenant</a>
+                <a href="results.html" class="btn btn-secondary">Voir les résultats</a>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Sécurité maximale</h3>
+                <p>Votes cryptés et vérifiables pour garantir l'intégrité des élections</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Simplicité d'utilisation</h3>
+                <p>Interface intuitive permettant à tous de voter facilement</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Résultats en temps réel</h3>
+                <p>Visualisez les tendances et résultats instantanément</p>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>Comment ça fonctionne</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Identification</h3>
+                    <p>Connectez-vous avec vos identifiants uniques sécurisés</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Vote</h3>
+                    <p>Choisissez vos candidats selon le mode de scrutin de l'élection</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Confirmation</h3>
+                    <p>Recevez une confirmation cryptographique de votre vote</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Résultats</h3>
+                    <p>Consultez les résultats en temps réel une fois le vote terminé</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Système de Vote d'Élection Avancé. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

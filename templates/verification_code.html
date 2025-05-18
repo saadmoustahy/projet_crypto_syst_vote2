@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Vérification du Code | Système de Vote</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Système de Vote d'Élection Avancé</h1>
+            <div class="top-bar">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('accueil') }}">Accueil</a></li>
+                        <li><a href="{{ url_for('admin_login') }}">Administration</a></li>
+                        <li><a href="{{ url_for('identification') }}" class="active">Voter</a></li>
+                        <li><a href="{{ url_for('results') }}">Résultats</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Vérification du Code</h2>
+            <p>Veuillez entrer le code que vous avez reçu par email.</p>
+
+            <!-- Affichage des messages flash avec style conditionnel -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert {% if category == 'error' %}alert-danger{% else %}alert-{{ category }}{% endif %}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('verifier_code') }}" method="POST" id="verification-form">
+                <!-- Ajout explicite du jeton CSRF -->
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <div class="form-group">
+                    <label for="verification_code">Code de vérification</label>
+                    <input type="text" name="verification_code" id="verification_code" required 
+                           placeholder="Entrez le code à 6 chiffres" maxlength="6" pattern="[0-9]{6}">
+                    <small class="form-text text-muted">Vérifiez votre email pour obtenir le code à 6 chiffres</small>
+                </div>
+            
+                <button type="submit" class="btn btn-primary">Vérifier le code</button>
+            </form>
+            
+            <div class="form-actions" style="margin-top: 20px; text-align: center;">
+                <a href="{{ url_for('identification') }}" class="btn-link">Retour à l'identification</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Système de Vote d'Élection Avancé. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Script externe -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

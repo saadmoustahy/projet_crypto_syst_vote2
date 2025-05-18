@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Non Trouvée | Système de Vote d'Élection Avancé</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Système de Vote d'Élection Avancé</h1>
+            <div class="top-bar">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('accueil') }}">Accueil</a></li>
+                        <li><a href="{{ url_for('login') }}">Administration</a></li>
+                        <li><a href="{{ url_for('identification') }}">Voter</a></li>
+                        <li><a href="{{ url_for('results') }}">Résultats</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="card error-page">
+            <div class="error-icon">404</div>
+            <h2>Page Non Trouvée</h2>
+            <p>La page que vous avez demandée n'existe pas ou a été déplacée.</p>
+            <a href="{{ url_for('accueil') }}" class="btn btn-primary">Retour à l'accueil</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Système de Vote d'Élection Avancé. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>
