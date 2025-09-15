@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Flow Diagram</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .diagram-container {
+            text-align: center;
+            margin: 30px 0;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            padding: 20px;
+            background: #fafafa;
+        }
+        
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .description {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stage {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .stage:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .stage.intrusion { border-left-color: #FF6B6B; }
+        .stage.post-exploit { border-left-color: #FF8E53; }
+        .stage.anomalies { border-left-color: #4ECDC4; }
+        .stage.siem { border-left-color: #45B7D1; }
+        .stage.llm { border-left-color: #96CEB4; }
+        
+        .stage h3 {
+            margin: 0 0 15px 0;
+            color: #2c3e50;
+            font-size: 1.3em;
+        }
+        
+        .stage ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #555;
+        }
+        
+        .stage li {
+            margin: 5px 0;
+        }
+        
+        .download-section {
+            background: #ecf0f1;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .btn.png { background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); }
+        .btn.svg { background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%); }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .content { padding: 20px; }
+            .description { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Security Flow Diagram</h1>
+            <p>From Initial Intrusion to AI-Powered Response</p>
+        </div>
+        
+        <div class="content">
+            <div class="diagram-container">
+                <img src="{{ url_for('static', filename='diagrams/security_flow_diagram.png') }}" 
+                     alt="Security Flow Diagram" 
+                     id="main-diagram">
+            </div>
+            
+            <div class="description">
+                <div class="stage intrusion">
+                    <h3>🚨 Intrusion</h3>
+                    <ul>
+                        <li>Phishing attacks</li>
+                        <li>System vulnerabilities</li>
+                        <li>Compromised credentials</li>
+                    </ul>
+                </div>
+                
+                <div class="stage post-exploit">
+                    <h3>🔓 Post-exploitation</h3>
+                    <ul>
+                        <li>Lateral movement</li>
+                        <li>Privilege escalation</li>
+                        <li>Persistence mechanisms</li>
+                    </ul>
+                </div>
+                
+                <div class="stage anomalies">
+                    <h3>🔍 Anomalies</h3>
+                    <ul>
+                        <li>Traffic spikes</li>
+                        <li>Unauthorized access</li>
+                        <li>System irregularities</li>
+                    </ul>
+                </div>
+                
+                <div class="stage siem">
+                    <h3>📊 SIEM</h3>
+                    <ul>
+                        <li>Log collection</li>
+                        <li>Event correlation</li>
+                        <li>Alert generation</li>
+                    </ul>
+                </div>
+                
+                <div class="stage llm">
+                    <h3>🤖 LLM</h3>
+                    <ul>
+                        <li>Contextual analysis</li>
+                        <li>Hypothesis generation</li>
+                        <li>Automated responses</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="download-section">
+                <h3>Download Diagram</h3>
+                <p>Get the diagram in your preferred format for presentations, documentation, or integration.</p>
+                <div class="download-buttons">
+                    <a href="{{ url_for('static', filename='diagrams/security_flow_diagram.png') }}" 
+                       class="btn png" download>📸 Download PNG</a>
+                    <a href="{{ url_for('static', filename='diagrams/security_flow_diagram.svg') }}" 
+                       class="btn svg" download>📐 Download SVG</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Add some interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const stages = document.querySelectorAll('.stage');
+            stages.forEach(stage => {
+                stage.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
