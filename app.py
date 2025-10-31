@@ -656,6 +656,12 @@ def soumettre_vote():
         return redirect(url_for('vote_page'))
 
 
+@app.route('/security-flow-diagram')
+def security_flow_diagram():
+    """Route to display the security flow diagram."""
+    return render_template('security_flow_diagram.html')
+
+
 if __name__ == '__main__':
     check_static_paths()  # Vérifier les dossiers statiques avant de démarrer
     
